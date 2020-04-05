@@ -24020,7 +24020,40 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/App.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"../node_modules/react-dom/cjs/react-dom.development.js"}],"components/Artist.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Artist = function Artist(_ref) {
+  var artist = _ref.artist;
+  if (!artist) return null;
+  var images = artist.images,
+      name = artist.name,
+      followers = artist.followers,
+      genres = artist.genres;
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, name), /*#__PURE__*/_react.default.createElement("p", null, followers.total), /*#__PURE__*/_react.default.createElement("p", null, genres.join(',')), /*#__PURE__*/_react.default.createElement("img", {
+    src: images[0] && images[0].url,
+    alt: "artist-profile",
+    style: {
+      width: 200,
+      height: 200,
+      borderRadius: 100,
+      objectFit: "cover"
+    }
+  }));
+};
+
+var _default = Artist;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Tracks.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24058,6 +24091,232 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var Tracks = /*#__PURE__*/function (_Component) {
+  _inherits(Tracks, _Component);
+
+  var _super = _createSuper(Tracks);
+
+  function Tracks() {
+    var _this;
+
+    _classCallCheck(this, Tracks);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      playing: false,
+      audio: null,
+      playingPreviewUrl: null
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "playAudio", function (previewUrl) {
+      return function () {
+        var audio = new Audio(previewUrl);
+
+        if (!_this.state.playing) {
+          audio.play();
+
+          _this.setState({
+            playing: true,
+            audio: audio,
+            playingPreviewUrl: previewUrl
+          });
+        } else {
+          _this.state.audio.pause();
+
+          if (_this.state.playingPreviewUrl === previewUrl) {
+            _this.setState({
+              playing: false
+            });
+          } else {
+            audio.play();
+
+            _this.setState({
+              audio: audio,
+              playingPreviewUrl: previewUrl
+            });
+          }
+        }
+      };
+    });
+
+    return _this;
+  }
+
+  _createClass(Tracks, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var tracks = this.props.tracks;
+      return /*#__PURE__*/_react.default.createElement("div", null, tracks.map(function (track) {
+        var id = track.id,
+            name = track.name,
+            album = track.album,
+            preview_url = track.preview_url;
+        return /*#__PURE__*/_react.default.createElement("div", {
+          key: id,
+          onClick: _this2.playAudio(preview_url)
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          src: album.images[0].url,
+          alt: "track-image"
+        }), /*#__PURE__*/_react.default.createElement("p", null, name));
+      }));
+    }
+  }]);
+
+  return Tracks;
+}(_react.Component);
+
+var _default = Tracks;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Search.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Search = /*#__PURE__*/function (_Component) {
+  _inherits(Search, _Component);
+
+  var _super = _createSuper(Search);
+
+  function Search() {
+    var _this;
+
+    _classCallCheck(this, Search);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      artistQuery: ""
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "upadateArtistQuery", function (event) {
+      _this.setState({
+        artistQuery: event.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleKeyPress", function () {
+      if (event.key === "Enter") {
+        _this.searchArtist();
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "searchArtist", function () {
+      _this.props.searchArtist(_this.state.artistQuery);
+    });
+
+    return _this;
+  }
+
+  _createClass(Search, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+        onChange: this.upadateArtistQuery,
+        onKeyPress: this.handleKeyPress,
+        placeholder: "Search for an Artist"
+      }), /*#__PURE__*/_react.default.createElement("button", {
+        onClick: this.searchArtist
+      }, "Search"));
+    }
+  }]);
+
+  return Search;
+}(_react.Component);
+
+var _default = Search;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _Artist = _interopRequireDefault(require("./Artist"));
+
+var _Tracks = _interopRequireDefault(require("./Tracks"));
+
+var _Search = _interopRequireDefault(require("./Search"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
+
 var App = /*#__PURE__*/function (_Component) {
   _inherits(App, _Component);
 
@@ -24075,12 +24334,33 @@ var App = /*#__PURE__*/function (_Component) {
     _this = _super.call.apply(_super, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      displayBio: false
+      artist: null,
+      tracks: []
     });
 
-    _defineProperty(_assertThisInitialized(_this), "toggleDisplayBio", function () {
-      _this.setState({
-        displayBio: !_this.state.displayBio
+    _defineProperty(_assertThisInitialized(_this), "searchArtist", function (artistQuery) {
+      fetch("".concat(API_ADDRESS, "/artist/").concat(artistQuery)).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        if (json.artists.total > 0) {
+          var artist = json.artists.items[0];
+
+          _this.setState({
+            artist: artist
+          });
+
+          fetch("".concat(API_ADDRESS, "/artist/").concat(artist.id, "/top-tracks")).then(function (response) {
+            return response.json();
+          }).then(function (json) {
+            return _this.setState({
+              tracks: json.tracks
+            });
+          }).catch(function (error) {
+            return alert(error.message);
+          });
+        }
+      }).catch(function (error) {
+        return alert(error.message);
       });
     });
 
@@ -24090,7 +24370,18 @@ var App = /*#__PURE__*/function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement("div", null, "React App");
+      console.log("this.state", this.state);
+      return /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          textAlign: "center"
+        }
+      }, /*#__PURE__*/_react.default.createElement("h2", null, "Music Master"), /*#__PURE__*/_react.default.createElement(_Search.default, {
+        searchArtist: this.searchArtist
+      }), /*#__PURE__*/_react.default.createElement(_Artist.default, {
+        artist: this.state.artist
+      }), /*#__PURE__*/_react.default.createElement(_Tracks.default, {
+        tracks: this.state.tracks
+      }));
     }
   }]);
 
@@ -24099,7 +24390,7 @@ var App = /*#__PURE__*/function (_Component) {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Artist":"components/Artist.js","./Tracks":"components/Tracks.js","./Search":"components/Search.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -24138,7 +24429,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59757" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61583" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
