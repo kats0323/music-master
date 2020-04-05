@@ -35,8 +35,9 @@ class App extends Component {
         console.log("this.state", this.state)
         return (
             <div style={{ textAlign: "center" }}>
-                <h2>Music Master</h2>
+                <h1 style={{ paddingBottom: 20 }}>Mu<span style={{ color: "white" }}>s</span>ic Ma<span style={{ color: "white" }}>st</span>er</h1>
                 <Search searchArtist={this.searchArtist} />
+                <br />
                 <Artist artist={this.state.artist} />
                 <Tracks tracks={this.state.tracks} />
             </div >

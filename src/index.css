@@ -13,9 +13,12 @@ body{
     font-size: 20px;
     padding: 2.5%;
     font-family: "RobotoCondensed";
+    background: linear-gradient(to bottom right, #232526, #414345); 
+    color: #f953c6;
 }
-h1,h2,h3,h4,h5{
+h1,h2,h3,h4,h5,p{
     font-size: "EconomicaBold";
+    color: #f953c6;
 }
 .track{
     width: 250px;
@@ -32,18 +35,21 @@ h1,h2,h3,h4,h5{
     position: absolute;
     width: 250px;
     background-color: black;
-    color: white;
+    color: #f953c6;
     padding: 5px;
 }
 .track-icon{
     position: absolute;
     bottom: 100px;
     left: 100px;
-    color: white;
+    color: #f953c6;
     background-color: black;
     width: 50px;
     height: 50px;
     border-radius: 25px;
     padding: 10px;
     opacity: 0.8;
+}
+.color{
+    color: #f953c6;
 }

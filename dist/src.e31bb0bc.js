@@ -24039,7 +24039,19 @@ var Artist = function Artist(_ref) {
       name = artist.name,
       followers = artist.followers,
       genres = artist.genres;
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, name), /*#__PURE__*/_react.default.createElement("p", null, followers.total), /*#__PURE__*/_react.default.createElement("p", null, genres.join(',')), /*#__PURE__*/_react.default.createElement("img", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h3", null, /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      color: "white"
+    }
+  }, "Name: "), " ", name), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      color: "white"
+    }
+  }, "Followers: "), followers.total), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      color: "white"
+    }
+  }, "Genre: "), genres.join(',')), /*#__PURE__*/_react.default.createElement("img", {
     src: images[0] && images[0].url,
     alt: "artist-profile",
     style: {
@@ -24146,14 +24158,20 @@ var Tracks = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "trackIcon", function (track) {
       if (!track.preview_url) {
-        return /*#__PURE__*/_react.default.createElement("span", null, " N/A:\u518D\u751F\u3067\u304D\u307E\u305B\u3093 ");
+        return /*#__PURE__*/_react.default.createElement("span", {
+          className: "color"
+        }, " N/A:\u518D\u751F\u3067\u304D\u307E\u305B\u3093 ");
       }
 
       if (_this.state.playing && _this.state.playingPreviewUrl === track.preview_url) {
-        return /*#__PURE__*/_react.default.createElement("span", null, " || ");
+        return /*#__PURE__*/_react.default.createElement("span", {
+          className: "color"
+        }, " || ");
       } else {}
 
-      return /*#__PURE__*/_react.default.createElement("span", null, "\u25B6");
+      return /*#__PURE__*/_react.default.createElement("span", {
+        className: "color"
+      }, "\u25B6");
     });
 
     return _this;
@@ -24182,7 +24200,7 @@ var Tracks = /*#__PURE__*/function (_Component) {
           className: "track-text"
         }, name), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("p", {
           style: {
-            paddingTop: "30px"
+            paddingTop: "60px"
           }
         }, _this2.trackIcon(track)));
       }));
@@ -24400,9 +24418,21 @@ var App = /*#__PURE__*/function (_Component) {
         style: {
           textAlign: "center"
         }
-      }, /*#__PURE__*/_react.default.createElement("h2", null, "Music Master"), /*#__PURE__*/_react.default.createElement(_Search.default, {
+      }, /*#__PURE__*/_react.default.createElement("h1", {
+        style: {
+          paddingBottom: 20
+        }
+      }, "Mu", /*#__PURE__*/_react.default.createElement("span", {
+        style: {
+          color: "white"
+        }
+      }, "s"), "ic Ma", /*#__PURE__*/_react.default.createElement("span", {
+        style: {
+          color: "white"
+        }
+      }, "st"), "er"), /*#__PURE__*/_react.default.createElement(_Search.default, {
         searchArtist: this.searchArtist
-      }), /*#__PURE__*/_react.default.createElement(_Artist.default, {
+      }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement(_Artist.default, {
         artist: this.state.artist
       }), /*#__PURE__*/_react.default.createElement(_Tracks.default, {
         tracks: this.state.tracks
